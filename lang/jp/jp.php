@@ -45,6 +45,9 @@ return [
     "Insurance"=>"保険",
     "You Are Logged In"=>"あなたはログインしています",
     "Dashboard"=>"ダッシュボード",
+    "You have logged in successfully"=>"ログインに成功しました",
+    "The name field must be at least 2 characters."=>"名前フィールドは 2 文字以上にする必要があります。"
+    
 ];
    
 

@@ -19,7 +19,7 @@ class CarFactory extends Factory
     {
         return [
             'owner_id'=>Owner::factory(),
-            'reg_number'=>fake()->randomNumber(8,true),
+            'reg_number'=>fake()->regexify('^[A-Z]{3}\d{3}'),
             'brand'=>fake()->word(),
             'model'=>fake()->word()        ];
     }

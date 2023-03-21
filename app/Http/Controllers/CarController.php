@@ -18,9 +18,9 @@ class CarController extends Controller
     }
     public function saveCar(Request $request){
         $request->validate([
-            'reg_number'=> 'required',
-            'brand'=>'required',
-            'model'=>'required'
+            'reg_number'=> 'required|min:6|max:6',
+            'brand'=>'required|min:2|max:20',
+            'model'=>'required|min:2|max:20'
         ]);
 
         $reg_number = $request->reg_number;
@@ -43,9 +43,9 @@ class CarController extends Controller
     }
     public function updateCar(Request $request){
         $request->validate([
-            'reg_number'=> 'required',
-            'brand'=>'required',
-            'model'=>'required'
+            'reg_number'=> 'required|min:6|max:6',
+            'brand'=>'required|min:2|max:20',
+            'model'=>'required|min:2|max:20'
         ]);
         $id = $request->id;    
         $reg_number = $request->reg_number;

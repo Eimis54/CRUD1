@@ -45,4 +45,6 @@ return[
     "Insurance"=>"Insurance",
     "You Are Logged In"=>"You Are Logged In",
     "Dashboard"=>"Dashboard",
+    "You have logged in successfully"=>"You have logged in successfully",
+    'You have successfully logged in!'=>"You have successfully logged in!",
 ];

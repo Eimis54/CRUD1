@@ -19,9 +19,9 @@ class OwnerController extends Controller
     }
     public function saveOwner(Request $request){
         $request->validate([
-            'name'=> 'required',
-            'surname'=>'required',
-            'years'=>'required'
+            'name'=> 'required|min:2|max:20',
+            'surname'=>'required|min:2|max:20',
+            'years'=>'required|integer'
         ]);
 
         $name = $request->name;
@@ -42,9 +42,9 @@ class OwnerController extends Controller
     }
     public function updateOwner(Request $request){
         $request->validate([
-            'name'=> 'required',
-            'surname'=>'required',
-            'years'=>'required'
+            'name'=> 'required|min:2|max:20',
+            'surname'=>'required|min:2|max:20',
+            'years'=>'required|integer'
         ]);
         $id = $request->id;    
         $name = $request->name;

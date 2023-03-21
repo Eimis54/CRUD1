@@ -20,7 +20,7 @@ public function registration(){
 }
 public function postLogin(Request $request){
 $request->validate([
-    'email'=>'required',
+    'email'=>'required|email',
     'password'=>'required',
 ]);
 $credentials = $request->only('email','password');
@@ -33,7 +33,7 @@ return redirect('login')->withSuccess('Oops... You have entered wrong credential
 }
 public function postRegistration(Request $request){
     $request->validate([
-        'name'=>'required',
+        'name'=>'required|min:3|max:12',
         'email'=>'required|email|unique:users',
         'password'=>'required|min:6',
     ]);

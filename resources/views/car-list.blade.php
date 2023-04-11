@@ -43,6 +43,7 @@
                 <table class="table">
                     <thead><tr>
                     <th>#</th>
+                    <th>{{__('jp.Image')}}</th>
                     <th>{{__('jp.Owner')}}</th>
                     <th>{{__('jp.Registration Number')}}</th>
                     <th>{{__('jp.Brand')}}</th> 
@@ -56,6 +57,11 @@
                         @foreach ($data as $carD )
                             <tr>
                                 <td>{{$i++}}</td>
+                                <td>    
+                                    @if ($carD->image!==null)
+                                      <img src="{{ asset("/storage/cars/".$carD->image) }}" style="width:100px">
+                                    @endif
+                                </td>
                                 <td>{{$carD->owner->name}}</td>
                                 <td>{{$carD->reg_number}}</td>
                                 <td>{{$carD->brand}}</td>

@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Car;
 use App\Models\Owner;
+use App\Models\Images;
 class CarController extends Controller
 {
     public function index(Request $request){
         $filter=$request->session()->get('filterCar',(object)['reg_number'=>null,'brand'=>null,'model'=>null]);
         $data = Car::filter($filter)->get();
-
-        return view('car-list',['data'=>$data,'filter'=>$filter,'cars'=>Car::all()]);
+       
+        return view('car-list',['data'=>$data,'filter'=>$filter,'cars'=>Car::all(),'cars_image'=>Images::all()]);
     }
     public function addCar(){
         return view('add-car', ['owners'=>Owner::all()]);
@@ -27,6 +28,7 @@ class CarController extends Controller
         $brand = $request->brand;
         $model = $request->model;
         $owner_id = $request->owner_id;
+        $image = $request->image;
 
         $own = new Car();
         $own -> reg_number = $reg_number;
@@ -41,7 +43,7 @@ class CarController extends Controller
         $data = Car::where('id','=',$id)->first();
         return view('edit-car',compact('data'), ['owners'=>Owner::all()]);
     }
-    public function updateCar(Request $request){
+    public function updateCar(Request $request, $id){
         $request->validate([
             'reg_number'=> 'required|min:6|max:6',
             'brand'=>'required|min:2|max:20',
@@ -52,12 +54,22 @@ class CarController extends Controller
         $brand = $request->brand;
         $model = $request->model;
         $owner_id = $request->owner_id;
+        $carsI=Car::find($id);
+        if ($request->file("image")!=null){
+            if ($carsI->image!=null){
+                unlink(storage_path()."/app/public/cars/".$carsI->image);
+            }
+            $request->file("image")->store("/public/cars");
+            $carsI->image=$request->file("image")->hashName();
+        }
     
         Car::where('id','=',$id)->update([
             'reg_number'=>$reg_number,
             'brand'=>$brand,
             'model'=>$model,
-            'owner_id'=>$owner_id
+            'owner_id'=>$owner_id,
+            'image'=>$carsI->image,
+        
         ]);
         return redirect()->back()->with('success','Car Updated Successfully');
     }
@@ -74,5 +86,9 @@ class CarController extends Controller
      
         $request->session()->put('filterCar',$filterCar);
         return redirect()->back()->with('success','Search Was Successful');
+    }
+    public function deleteImage($carsI){
+        Car::where('image', '=', $carsI)->update(['image' => null]);
+        return redirect()->back()->with('success','Car Image Deleted Successfully');
     }
 }

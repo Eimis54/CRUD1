@@ -13,6 +13,9 @@ class Car extends Model
     public function owner(){
         return $this->belongsTo(Owner::class);
     }
+    public function images(){
+        return $this->hasMany(Images::class);
+    }
     public function scopeFilter(Builder $query, $filter){
         if ($filter->reg_number!=null){
             $query->where('reg_number',$filter->reg_number);

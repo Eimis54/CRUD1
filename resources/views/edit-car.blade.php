@@ -17,7 +17,7 @@
             {{Session::get('success')}}
             </div>
     @endif
-    <form method="post" action="{{url('update-car')}}">
+    <form method="post" action="{{url('update-car',$data->id)}}" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id" value="{{$data->id}}">
             <div class="md-3">
@@ -55,6 +55,14 @@
                     </option>
                 @endforeach
             </select><br>
+            <div class="mb-3">
+                <label class="form-label">Nuotrauka:</label>
+                <input class="form-control" type="file" name="image" ><br>
+                @if ($data->image!==null)
+                <img src="{{ asset("/storage/cars/".$data->image) }}" style="width:100px">
+              @endif
+              <a href="{{url('delete-image/'.$data->image)}}" class="btn btn-danger">{{__('jp.Delete')}}</a>
+            </div>
             <button type="submit" class="btn btn-primary">{{__('jp.Submit')}}</button>
             <a href="{{url('car-list')}}" class="btn btn-danger">{{__('jp.Back')}}</a>
     </form>

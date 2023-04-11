@@ -47,4 +47,7 @@ return[
     "Dashboard"=>"Dashboard",
     "You have logged in successfully"=>"You have logged in successfully",
     'You have successfully logged in!'=>"You have successfully logged in!",
+    "Add Image"=>"Add Image",
+    "Image"=>"Image",
+
 ];

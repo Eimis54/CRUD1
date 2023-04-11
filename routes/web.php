@@ -36,8 +36,9 @@ Route::middleware('loggedIn')->group(function (){
 Route::get('add-car',[CarController::class,'addCar']);
 Route::post('save-car',[CarController::class,'saveCar']);
 Route::get('edit-car/{id}',[CarController::class,'editCar']);
-Route::post('update-car',[CarController::class,'updateCar']);
+Route::post('update-car/{id}',[CarController::class,'updateCar']);
 Route::get('delete-car/{id}',[CarController::class,'deleteCar']);
+Route::get('delete-image/{image}',[CarController::class,'deleteImage']);
 });
 });
 

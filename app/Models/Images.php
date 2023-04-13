@@ -9,6 +9,10 @@ class Images extends Model
 {
     use HasFactory;
 
+    protected $fillable=['image','car_id'];
+
+    protected $table='cars_image';
+
     public function car(){
         return $this->belongsTo((Car::class));
     }

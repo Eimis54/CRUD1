@@ -54,23 +54,30 @@ class CarController extends Controller
         $brand = $request->brand;
         $model = $request->model;
         $owner_id = $request->owner_id;
-        $carsI=Car::find($id);
+
+
         if ($request->file("image")!=null){
-            if ($carsI->image!=null){
-                unlink(storage_path()."/app/public/cars/".$carsI->image);
+            foreach($request->file("image") as $carImage){
+                $carImage->store("/public/cars");
+                $carFile=$carImage->hashName();
+                Images::create([
+                    'image'=>$carFile,
+                    'car_id'=>$id,
+                ]);
             }
-            $request->file("image")->store("/public/cars");
-            $carsI->image=$request->file("image")->hashName();
+            return redirect()->back()->with('success','Car Image Updated Successfully');
         }
     
         Car::where('id','=',$id)->update([
             'reg_number'=>$reg_number,
             'brand'=>$brand,
             'model'=>$model,
-            'owner_id'=>$owner_id,
-            'image'=>$carsI->image,
-        
+            'owner_id'=>$owner_id,   
+     
         ]);
+        // Images::where('car_id','=',$id)->update([
+        //     'image'=>$carsI->image,
+        // ]);
         return redirect()->back()->with('success','Car Updated Successfully');
     }
     public function deleteCar($id){
@@ -87,8 +94,8 @@ class CarController extends Controller
         $request->session()->put('filterCar',$filterCar);
         return redirect()->back()->with('success','Search Was Successful');
     }
-    public function deleteImage($carsI){
-        Car::where('image', '=', $carsI)->update(['image' => null]);
+    public function deleteImage($carsFile){
+        Images::where('image', '=', $carsFile)->delete();
         return redirect()->back()->with('success','Car Image Deleted Successfully');
     }
 }

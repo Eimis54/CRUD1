@@ -58,9 +58,9 @@
                             <tr>
                                 <td>{{$i++}}</td>
                                 <td>    
-                                    @if ($carD->image!==null)
-                                      <img src="{{ asset("/storage/cars/".$carD->image) }}" style="width:100px">
-                                    @endif
+                                    @foreach ($carD->Images as $carImages)
+                                        <img src="{{asset("/storage/cars/".$carImages->image)}}" style="width:100px">
+                                    @endforeach
                                 </td>
                                 <td>{{$carD->owner->name}}</td>
                                 <td>{{$carD->reg_number}}</td>

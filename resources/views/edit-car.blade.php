@@ -57,11 +57,11 @@
             </select><br>
             <div class="mb-3">
                 <label class="form-label">Nuotrauka:</label>
-                <input class="form-control" type="file" name="image" ><br>
-                @if ($data->image!==null)
-                <img src="{{ asset("/storage/cars/".$data->image) }}" style="width:100px">
-              @endif
-              <a href="{{url('delete-image/'.$data->image)}}" class="btn btn-danger">{{__('jp.Delete')}}</a>
+                <input class="form-control" type="file" name="image[]" multiple ><br>
+                @foreach ($data->Images as $carImages)
+                <img src="{{asset("/storage/cars/".$carImages->image)}}" style="width:100px">
+                <a href="{{url('delete-image/'.$carImages->image)}}" class="btn btn-danger">{{__('jp.Delete')}}</a>
+            @endforeach
             </div>
             <button type="submit" class="btn btn-primary">{{__('jp.Submit')}}</button>
             <a href="{{url('car-list')}}" class="btn btn-danger">{{__('jp.Back')}}</a>

@@ -51,13 +51,22 @@
                             $i = 1;
                         @endphp
                         @foreach ($data as $ownerD )
+                                    @can('view', $ownerD)
                             <tr>
                                 <td>{{$i++}}</td>
                                 <td>{{$ownerD->name}}</td>
                                 <td>{{$ownerD->surname}}</td>
                                 <td>{{$ownerD->years}}</td>
-                                <td><a href="{{url('edit-owner/'.$ownerD->id)}}" class="btn btn-primary">{{__('jp.Edit')}}</a>|<a href="{{url('delete-owner/'.$ownerD->id)}}" class="btn btn-danger">{{__('jp.Delete')}}</a></td>
+                                <td>
+                                    @can('update', $ownerD)
+                                    <a href="{{url('edit-owner/'.$ownerD->id)}}" class="btn btn-primary">{{__('jp.Edit')}}</a>|
+                                    @endcan
+                                    @can('delete', $ownerD)
+                                    <a href="{{url('delete-owner/'.$ownerD->id)}}" class="btn btn-danger">{{__('jp.Delete')}}</a>
+                                    @endcan
+                                </td>
                             </tr>
+                                    @endcan
                         @endforeach
                     </tbody>
                 </table>

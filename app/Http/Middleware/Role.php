@@ -18,7 +18,7 @@ class Role
         if ($request->user()==null){
             return redirect()->route('login');
         }
-        if ($request->user()->role!='super_admin'){
+        if ($request->user()->role!='admin'){
             return redirect()->back()->with('noRole','You can not access this!');
         }
         return $next($request);

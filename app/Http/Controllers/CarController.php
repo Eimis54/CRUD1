@@ -39,7 +39,7 @@ class CarController extends Controller
 
         return redirect()->back()->with('success','Car Added Successfully');
     }
-    public function editCar($id){
+    public function editCar($id, Request $request){
         $data = Car::where('id','=',$id)->first();
         return view('edit-car',compact('data'), ['owners'=>Owner::all()]);
     }

@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Owner;
 use App\Models\Car;
+use App\Models\Owner;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OwnerController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Owner::class, 'name');
+    }
     public function index(Request $request){
         $filter=$request->session()->get('filterOwner',(object)['name'=>null,'surname'=>null,'years'=>null]);
         $data = Owner::filter($filter)->get();
@@ -28,10 +33,13 @@ class OwnerController extends Controller
         $surname = $request->surname;
         $years = $request->years;
 
+        $userId = Auth::user()->id;
+
         $own = new Owner();
         $own -> name = $name;
         $own -> surname = $surname;
         $own -> years = $years;
+        $own -> user_id = $userId;
         $own ->save();
 
         return redirect()->back()->with('success','Owner Added Successfully');

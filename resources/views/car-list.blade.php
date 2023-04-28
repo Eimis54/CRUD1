@@ -55,6 +55,7 @@
                             $i = 1;
                         @endphp
                         @foreach ($data as $carD )
+                        @can('view', $carD)
                             <tr>
                                 <td>{{$i++}}</td>
                                 <td>    
@@ -66,8 +67,15 @@
                                 <td>{{$carD->reg_number}}</td>
                                 <td>{{$carD->brand}}</td>
                                 <td>{{$carD->model}}</td>
-                                <td><a href="{{url('edit-car/'.$carD->id)}}" class="btn btn-primary">{{__('jp.Edit')}}</a>|<a href="{{url('delete-car/'.$carD->id)}}" class="btn btn-danger">{{__('jp.Delete')}}</a></td>
+                                <td>
+                                    @can('update', $carD)
+                                    <a href="{{url('edit-car/'.$carD->id)}}" class="btn btn-primary">{{__('jp.Edit')}}</a>|
+                                    @endcan
+                                    @can('delete', $carD)
+                                    <a href="{{url('delete-car/'.$carD->id)}}" class="btn btn-danger">{{__('jp.Delete')}}</a></td>      
+                                    @endcan                             
                             </tr>
+                            @endcan
                         @endforeach
                     </tbody>
                 </table>

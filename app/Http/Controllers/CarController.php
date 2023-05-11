@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewCar;
 use Illuminate\Http\Request;
 use App\Models\Car;
 use App\Models\Owner;
@@ -36,6 +37,8 @@ class CarController extends Controller
         $own -> model = $model;
         $own -> owner_id = $owner_id;
         $own ->save();
+
+        NewCar::dispatch($own);
 
         return redirect()->back()->with('success','Car Added Successfully');
     }

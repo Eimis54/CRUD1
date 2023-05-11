@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\OwnerAPIController;
+use App\Http\Controllers\CarAPIController;
+use App\Models\Owner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +20,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::resource('owner-list', OwnerAPIController::class);
+Route::resource('car-list', CarAPIController::class);

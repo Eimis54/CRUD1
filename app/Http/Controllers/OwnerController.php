@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewOwner;
 use App\Models\Car;
 use App\Models\Owner;
 use Illuminate\Http\Request;
@@ -41,6 +42,8 @@ class OwnerController extends Controller
         $own -> years = $years;
         $own -> user_id = $userId;
         $own ->save();
+
+        NewOwner::dispatch($own);
 
         return redirect()->back()->with('success','Owner Added Successfully');
     }
